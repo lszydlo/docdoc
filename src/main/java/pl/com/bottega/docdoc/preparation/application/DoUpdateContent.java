@@ -1,4 +1,4 @@
-package pl.com.bottega.docdoc.preparation;
+package pl.com.bottega.docdoc.preparation.application;
 
 
 import pl.com.bottega.docdoc.identifiers.QDocId;

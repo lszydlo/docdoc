@@ -3,9 +3,9 @@ package pl.com.bottega.docdoc.gateway;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.com.bottega.docdoc.identifiers.QDocId;
-import pl.com.bottega.docdoc.preparation.DoCreateQDoc;
-import pl.com.bottega.docdoc.preparation.DoUpdateContent;
-import pl.com.bottega.docdoc.preparation.PreparationService;
+import pl.com.bottega.docdoc.preparation.application.DoCreateQDoc;
+import pl.com.bottega.docdoc.preparation.application.DoUpdateContent;
+import pl.com.bottega.docdoc.preparation.application.PreparationService;
 
 import java.util.UUID;
 
