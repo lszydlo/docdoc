@@ -1,6 +1,8 @@
 package pl.com.bottega.docdoc.preparation.application;
 
+import javafx.scene.canvas.GraphicsContext;
 import org.springframework.stereotype.Service;
+import pl.com.bottega.docdoc.identifiers.QDocId;
 
 import java.time.Clock;
 import java.time.YearMonth;
@@ -9,40 +11,40 @@ import java.time.YearMonth;
 public class PreparationService {
 
 
-	Clock clock;
-	SystemConfigPort config;
-	AuthPort userProvider;
-	SeqProviderPort seqProviderPort;
+
+
+	QDocNumberFactory numberFactory;
+	private QDocDraftRepo repo;
 
 	public void handle(DoCreateQDoc command) {
 
-		String number = generate(null,YearMonth.now(), true,config.isDemo(), config.systemType());
-		QDocDraft draft = new QDocDraft(number);
-
+		QDocDraft draft = new QDocDraft(numberFactory.create());
+		repo.save(draft);
 	}
 
 	public void handle(DoUpdateContent command) {
+		QDocDraft draft = repo.load(command.getId());
 
+		draft.updateContent(command);
+
+		repo.save(draft);
 	}
 
 
-	String generate(Integer seq, YearMonth yearMonth, boolean isAuditor, boolean isDemo, String systemType) {
-		String num = systemType + "/" + seq + "/" + yearMonth.getMonthValue() + "/" + yearMonth.getYear();
 
-		if (isAuditor) {
-			num = num + "/AUDIT";
+
+	class QDocDraft {
+		private final QDocNumber number;
+
+		public QDocDraft(QDocNumber number) {
+			this.number = number;
 		}
 
-		if (isDemo) {
-			num = "DEMO/" + num;
-		}
+		public void updateContent(DoUpdateContent command) {
 
-		return num;
-	}
 
-	private class QDocDraft {
-		public QDocDraft(String number) {
 
 		}
 	}
+
 }
